@@ -6,6 +6,7 @@ const ContratosStatus3 = new Schema({
     idAtividade: String,
     siteNome: String,
     realizada: Boolean,
+    quant:String 
 });
 
 

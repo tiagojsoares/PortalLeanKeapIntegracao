@@ -1,9 +1,8 @@
-
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-const ContratosStatus1 = new Schema({
+const ContratosStatus4 = new Schema({
     idAtividade: String,
     siteNome: String,
     realizada: Boolean,
@@ -11,4 +10,4 @@ const ContratosStatus1 = new Schema({
 });
 
 
-module.exports = mongoose.model("Status1", ContratosStatus1);
+module.exports = mongoose.model("Status4", ContratosStatus4);
