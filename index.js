@@ -5,7 +5,7 @@ const Status1 = require('./Schemas/Status1');
 const app = express();
 const http = require('http');
 const apiLogica= require('./apiLogica');
-mongoose.connect('mongodb+srv://controller:D&s&nv0lvim&nt0@cluster0.axotu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://controller:D&s&nv0lvim&nt0@cluster0.glt6q.mongodb.net/PortalIntegracao?retryWrites=true&w=majority');
 const port = process.env.Port || 3000;
 
 app.get('/', (req, res) => {
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
         } else {
             // res.status(200).send(deps);
             res.send(deps);
-        }
+            }
     });
     
 }

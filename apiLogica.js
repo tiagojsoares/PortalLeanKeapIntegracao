@@ -3,58 +3,66 @@ var qs = require('qs');
 const Status1 = require('./Schemas/Status1');
 const Status2 = require('./Schemas/Status2');
 const Status3 = require('./Schemas/Status3');
-const Status4 = require('./Schemas/Status3');
+const Status4 = require('./Schemas/Status4');
 const ObterContratos = require('./Schemas/contratos');
 let ArrayContratosGlobalStatus1 = [];
 let ArrayContratosGlobalStatus2 = [];
 let ArrayContratosGlobalStatus3 = [];
 let ArrayContratosGlobalStatus4 = [];
+delStatus1();
+delStatus2();
+delStatus3();
+delStatus4();
 
 
-/* Iniciando A logica*/
-(ObterContratos.then(a => {
-    let contrato = factoryContrato('SICOOB CREDICITRUS', '11', '2021', '');
-    InitLogic(contrato);
-}));
+/* Iniciando A logica um contrato*/
+
+// (ObterContratos.then(a => {
+//     let contrato = factoryContrato('ITAU IBBA', '11', '2021', ''); 
+//     InitLogic(contrato);    
+// }));
 
 /*Fim*/
 
 
-
 /* Iniciando A logica*/
+
 (ObterContratos.then(a => {
-    let mes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    a.map(c => {
-        mes.map(m => {
-            let contrato = factoryContrato(c, format(m), '2021', '');
-            // console.log(contrato);
-        });
+    let query = ObterToken();
+    query.then(token => {
+        let mes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        a.map(c => {
+            mes.map(m => {
+                let contrato = factoryContrato(c, format(m), '2021', token, []);
+                InitLogicAno(contrato);
 
-    })
 
-    // InitLogic(contrato);
+            });
+
+        })
+
+        // InitLogic(contrato);
+
+    });
+
 }));
 
 /*Fim*/
 
 function InitLogic(contrato) {
 
-    /*Limpeza*/
-    //   sessionStorage.AtividadesStatus1 = '';
-    //   sessionStorage.AtividadesStatus2 = '';
-    //   sessionStorage.AtividadesStatus3 = '';
-    /*FIM*/
 
     let dias = getDiasMes(contrato.month, contrato.year);
-    let query = ObterToken();
-    dias = [19];
 
+    let query = ObterToken();
+    dias = ['15'];
 
     let queryContrato = [];
+
     query.then((dados) => {
         contrato.token = dados;
         dias.map((d) => {
-            console.log(`Iniciando Logica Dia: ${d}`);
+            // console.log(`Iniciando Logica Dia: ${d}`);
             let ArrayContrato = factoryContrato(
                 contrato.siteNome,
                 contrato.month,
@@ -64,16 +72,47 @@ function InitLogic(contrato) {
             );
 
             queryContrato.push(ArrayContrato);
-            ObterAtividadesMes(ArrayContrato);
+            console.log(ArrayContrato);
+            // ObterAtividadesMes(ArrayContrato);
         });
     });
 }
 
 
 
+function InitLogicAno(contrato) {
+    console.log(contrato);
+    let dias = getDiasMes(contrato.month, contrato.year);
+
+    dias = ['15'];
+
+    let queryContrato = [];
+
+    dias.map((d) => {
+        // console.log(`Iniciando Logica Dia: ${d}`);
+        let ArrayContrato = factoryContrato(
+            contrato.siteNome,
+            contrato.month,
+            contrato.year,
+            contrato.token,
+            d
+        );
+
+        queryContrato.push(ArrayContrato);
+        // console.log(ArrayContrato);
+        // ObterAtividadesMes(ArrayContrato);
+    });
+
+}
+
+
+
+
+
+
+
 function ObterAtividadesMes(contrato) {
     var PageSize = 500000;
-    // console.log(contrato);
 
     var settingsStatus1 = {
         url: `https://lighthousev2.lkp.app.br/v1/atividades?SelectedDate=${contrato.year}-${contrato.month}-${contrato.days}&StatusId=1`,
@@ -166,7 +205,7 @@ function ObterAtividadesMes(contrato) {
 }
 
 function ObterToken() {
-    var token = 'vazio';
+
     var dataToken = qs.stringify({
         Login: 'desen.controller',
         Password: 'controller123',
@@ -187,11 +226,15 @@ function ObterToken() {
         .then(function (response) {
 
             let token = 'Bearer ' + response.data.authToken.token;
+            console.log("Obtendo Token");
             return token;
         })
         .catch(function (error) {
             console.log(error);
         });
+
+
+
 }
 
 /*Funções para manipular Arrays*/
@@ -242,7 +285,7 @@ function cadastrarAtividadesStatus1(atividade) {
                     console.log(err);
                 } else {
                     //res.status(200).send(dep);
-                    console.log(`Gravando status 1 ${add.idAtividade}`);
+                    // console.log(`Gravando status 1 ${add.idAtividade}`);
                 }
             });
 
@@ -275,7 +318,7 @@ function cadastrarAtividadesStatus2(atividade) {
                     console.log(err);
                 } else {
                     //res.status(200).send(dep);
-                    console.log(`Gravando status 2 ${add.idAtividade}`);
+                    // console.log(`Gravando status 2 ${add.idAtividade}`);
                 }
             });
         });
@@ -305,7 +348,7 @@ function cadastrarAtividadesStatus3(atividade) {
                     console.log(err);
                 } else {
                     //res.status(200).send(dep);
-                    console.log(`Gravando status 3 ${add.idAtividade}`);
+                    // console.log(`Gravando status 3 ${add.idAtividade}`);
                 }
             });
         });
@@ -335,7 +378,7 @@ function cadastrarAtividadesStatus4(atividade) {
                     console.log(err);
                 } else {
                     //res.status(200).send(dep);
-                    console.log(`Gravando status 4 ${add.idAtividade}`);
+                    // console.log(`Gravando status 4 ${add.idAtividade}`);
                 }
             });
         });
