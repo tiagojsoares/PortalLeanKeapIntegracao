@@ -8,8 +8,13 @@ let query = ObterToken();
 
 
 
- module.exports = query.then((token) => {
-   return (ObterContratos(token));
+module.exports = query.then((token) => {
+    let contratos={
+        "contratos":(ObterContratos(token)),
+        "token":token
+    }
+    
+    return contratos;
 });
 
 
