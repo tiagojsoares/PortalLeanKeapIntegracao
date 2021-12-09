@@ -1,6 +1,5 @@
 version: '3.4'
 services:
-
   node_portal:
     build:
       dockerfile: ./node.Dockerfile
@@ -10,17 +9,16 @@ services:
     restart: always
     ports:
       - "2124:3000"
-
     networks:
       - portal-network
     # depends_on:
     #   - mongodb
 
-  # mongodb:
-  #   image: mongo
-  #   restart: always
-  #   networks:
-  #     - production-network
+  mongodb:
+    image: mongo
+    restart: always
+    networks:
+      - portal-network
 
 networks:
   portal-network:
