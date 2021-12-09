@@ -12,10 +12,10 @@ const start = new Date("2021-12-01");
 const end = new Date();
 let loop = new Date(start);
 
-// delStatus1();
-// delStatus2();
-// delStatus3();
-// delStatus4();
+delStatus1();
+delStatus2();
+delStatus3();
+delStatus4();
 
 
 
@@ -407,6 +407,6 @@ function EndTimer() {
 
 console.log('Iniciando Logica');
 //Timer Inciando
-// var myVar = setInterval(StartTimer, 10000);
+var myVar = setInterval(StartTimer, 10000);
 
 
