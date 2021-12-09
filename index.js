@@ -46,9 +46,9 @@ app.get('/', (req, res) => {
                                 } else {
                                     let status4 = factoryContrato(s, deps.length);
                                     AtividadesQuant.status4 = status4;
-                                    console.log(AtividadesQuant);
+                                    // console.log(AtividadesQuant);
                                     // res.status(200).send(deps);
-                                    res.send(200);
+                                    res.send(AtividadesQuant);
                                 }
                             });
                         }
