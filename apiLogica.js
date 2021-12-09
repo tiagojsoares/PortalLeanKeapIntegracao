@@ -7,8 +7,10 @@ const Status4 = require('./Schemas/Status4');
 let query = ObterToken();
 let token = "vazio";
 const delay = require('delay');
+let ano = new Date();
+ano = (ano.getFullYear() - 1);
+const start = new Date(ano + "-01-01");
 
-const start = new Date("2021-12-01");
 const end = new Date();
 let loop = new Date(start);
 
