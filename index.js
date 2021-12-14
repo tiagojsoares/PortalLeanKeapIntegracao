@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const mongoose = require('mongoose');
 const Status1 = require('./Schemas/Status1');
@@ -6,7 +7,6 @@ const Status3 = require('./Schemas/Status3');
 const Status4 = require('./Schemas/Status4');
 
 const app = express();
-const http = import('http');
 
 function factoryContrato(siteNome, quant) {
   const contrato = {};
