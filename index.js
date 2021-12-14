@@ -1,115 +1,83 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const Status1 = require('./Schemas/Status1');
 const Status2 = require('./Schemas/Status2');
 const Status3 = require('./Schemas/Status3');
 const Status4 = require('./Schemas/Status4');
+
 const app = express();
-const http = require('http');
-const apiLogica = require('./apiLogica');
+const http = import('http');
+
+function factoryContrato(siteNome, quant) {
+  const contrato = {};
+  contrato.siteNome = siteNome;
+  contrato.quant = quant;
+  // contrato.month = month;
+  // contrato.year = year;
+  // contrato.days = days;
+  // contrato.token = token;
+  return contrato;
+}
+// const apiLogica = require('./apiLogica');
+
 // mongoose.connect('mongodb+srv://controller:D&s&nv0lvim&nt0@cluster0.glt6q.mongodb.net/PortalIntegracao?retryWrites=true&w=majority');
 mongoose.connect('mongodb://mongodb:27017/Controllerbms_Projetos');
 
 const port = process.env.Port || 3000;
 
 app.get('/', (req, res) => {
-    //http://localhost:3000/?di=2021-12-01&df=2021-12-08&s=THERA%20OFFICE
-    console.log("Acessou a pagina");
-    // console.log(req.query);
-    let di = req.query.di;
-    let df = req.query.df;
-    let s = req.query.s;
-    let AtividadesQuant = {};
+  // http://localhost:3000/?di=2021-12-01&df=2021-12-08&s=THERA%20OFFICE
+  console.log('Acessou a pagina');
+  // console.log(req.query);
+  const { di } = req.query;
+  const { df } = req.query;
+  const { s } = req.query;
+  const AtividadesQuant = {};
 
-    Status1.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s }).exec((err, deps) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            let status1 = factoryContrato(s, deps.length);
-            AtividadesQuant.status1 = status1;
+  Status1.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s })
+    .exec((errStatus1, depsStatus1) => {
+      if (errStatus1) {
+        res.status(500).send(errStatus1);
+      } else {
+        const status1 = factoryContrato(s, depsStatus1.length);
+        AtividadesQuant.status1 = status1;
 
-            // res.status(200).send(deps);
-            Status2.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s }).exec((err, deps) => {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    let status2 = factoryContrato(s, deps.length);
-                    AtividadesQuant.status2 = status2;
-                    Status3.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s }).exec((err, deps) => {
-                        if (err) {
-                            res.status(500).send(err);
+        // res.status(200).send(deps);
+        Status2.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s })
+          .exec((errStatus2, depsStatus2) => {
+            if (errStatus2) {
+              res.status(500).send(errStatus2);
+            } else {
+              const status2 = factoryContrato(s, depsStatus2.length);
+              AtividadesQuant.status2 = status2;
+              Status3.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s })
+                .exec((errStatus3, depsStatus3) => {
+                  if (errStatus3) {
+                    res.status(500).send(errStatus3);
+                  } else {
+                    const status3 = factoryContrato(s, depsStatus3.length);
+                    AtividadesQuant.status3 = status3;
+                    Status4.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s })
+                      .exec((errStatus4, depsStatus4) => {
+                        if (errStatus4) {
+                          res.status(500).send(errStatus4);
                         } else {
-                            let status3 = factoryContrato(s, deps.length);
-                            AtividadesQuant.status3 = status3;
-                            Status4.find({ dataPrevista: { $gte: di, $lte: df }, siteNome: s }).exec((err, deps) => {
-                                if (err) {
-                                    res.status(500).send(err);
-                                } else {
-                                    let status4 = factoryContrato(s, deps.length);
-                                    AtividadesQuant.status4 = status4;
-                                    // console.log(AtividadesQuant);
-                                    // res.status(200).send(deps);
-                                    res.send(AtividadesQuant);
-                                }
-                            });
+                          const status4 = factoryContrato(s, depsStatus4.length);
+                          AtividadesQuant.status4 = status4;
+                          // console.log(AtividadesQuant);
+                          // res.status(200).send(deps);
+                          res.send(AtividadesQuant);
                         }
-                    });
-                }
-            });
-
-        }
+                      });
+                  }
+                });
+            }
+          });
+      }
     });
+});
 
-}
-);
-
-
-//Factory
-
-function factoryContrato(siteNome, quant) {
-    let contrato = {};
-    contrato.siteNome = siteNome;
-    contrato.quant = quant;
-    // contrato.month = month;
-    // contrato.year = year;
-    // contrato.days = days;
-    // contrato.token = token;
-    return contrato;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Factory
 
 const server = http.createServer(app);
 server.listen(port, () => console.log('Running..'));
