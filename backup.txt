@@ -1,0 +1,158 @@
+const settingsStatus2 = {
+  url: `https://lighthousev2.lkp.app.br/v1/atividades?SelectedDate=${year}-${month}-${days}&StatusId=2`,
+  method: 'GET',
+  timeout: 0,
+  headers: {
+    EmpresaId: '3554',
+    // SiteId: 35222,
+    Authorization: token,
+    'Content-Type': 'application/x-www-form-urlencoded',
+    // Accept: "*/*"
+  },
+};
+
+axios(settingsStatus2).then((response) => {
+  const dados = (response.data);
+  dados.map((a) => {
+    const dataPrevista = formatdateYear(a.dataPrevista);
+    const dataRealizada = formatdateYear(a.dataRealizada);
+    const add = new Status2(
+      {
+        tarefa: a.tarefa,
+        numero: a.numero,
+        descricao: a.descricao,
+        dataPrevista,
+        dataRealizada,
+        tempoPrevisto: a.tempoPrevisto,
+        aplicacaoPlanoAtividade: a.aplicacaoPlanoAtividade,
+        planoAtividade: a.planoAtividade,
+        atividade: a.atividade,
+        siteNome: a.siteNome,
+        grupoAreaNome: a.grupoAreaNome,
+        subGrupoAreaNome: a.subGrupoAreaNome,
+        areaNome: a.areaNome,
+        equipNome: a.equipNome,
+        sistemaEmpresaNome: a.sistemaEmpresaNome,
+        qtdMaterial: a.qtdMaterial,
+        executores: a.executores,
+        realizada: a.realizada,
+      },
+    );
+
+    // add.save((err, dep) => {
+    //   if (err) {
+    //     // res.status(500).send(err);
+    //     console.log(err);
+    //   } else {
+    //     // res.status(200).send(dep);
+    //     // console.log('Gravando status 2');
+    //   }
+    // });
+  });
+});
+
+const settingsStatus3 = {
+  url: `https://lighthousev2.lkp.app.br/v1/atividades?SelectedDate=${year}-${month}-${days}&StatusId=3`,
+  method: 'GET',
+  timeout: 0,
+  headers: {
+    EmpresaId: '3554',
+    // SiteId: 35222,
+    Authorization: token,
+    'Content-Type': 'application/x-www-form-urlencoded',
+    // Accept: "*/*"
+  },
+};
+
+axios(settingsStatus3).then((response) => {
+  const dados = (response.data);
+  dados.map((a) => {
+    const dataPrevista = formatdateYear(a.dataPrevista);
+    const dataRealizada = formatdateYear(a.dataRealizada);
+    const add = new Status3(
+      {
+        tarefa: a.tarefa,
+        numero: a.numero,
+        descricao: a.descricao,
+        dataPrevista,
+        dataRealizada,
+        tempoPrevisto: a.tempoPrevisto,
+        aplicacaoPlanoAtividade: a.aplicacaoPlanoAtividade,
+        planoAtividade: a.planoAtividade,
+        atividade: a.atividade,
+        siteNome: a.siteNome,
+        grupoAreaNome: a.grupoAreaNome,
+        subGrupoAreaNome: a.subGrupoAreaNome,
+        areaNome: a.areaNome,
+        equipNome: a.equipNome,
+        sistemaEmpresaNome: a.sistemaEmpresaNome,
+        qtdMaterial: a.qtdMaterial,
+        executores: a.executores,
+        realizada: a.realizada,
+      },
+    );
+
+    // add.save((err, dep) => {
+    //   if (err) {
+    //     // res.status(500).send(err);
+    //     console.log(err);
+    //   } else {
+    //     // res.status(200).send(dep);
+    //     // console.log('Gravando status 3');
+    //   }
+    // });
+  });
+});
+
+const settingsStatus4 = {
+  url: `https://lighthousev2.lkp.app.br/v1/atividades?SelectedDate=${year}-${month}-${days}&StatusId=4`,
+  method: 'GET',
+  timeout: 0,
+  headers: {
+    EmpresaId: '3554',
+    // SiteId: 45222,
+    Authorization: token,
+    'Content-Type': 'application/x-www-form-urlencoded',
+    // Accept: "*/*"
+  },
+};
+
+axios(settingsStatus4).then((response) => {
+  const dados = (response.data);
+  dados.map((a) => {
+    const dataPrevista = formatdateYear(a.dataPrevista);
+    const dataRealizada = formatdateYear(a.dataRealizada);
+    const add = new Status4(
+      {
+        tarefa: a.tarefa,
+        numero: a.numero,
+        descricao: a.descricao,
+        dataPrevista,
+        dataRealizada,
+        tempoPrevisto: a.tempoPrevisto,
+        aplicacaoPlanoAtividade: a.aplicacaoPlanoAtividade,
+        planoAtividade: a.planoAtividade,
+        atividade: a.atividade,
+        siteNome: a.siteNome,
+        grupoAreaNome: a.grupoAreaNome,
+        subGrupoAreaNome: a.subGrupoAreaNome,
+        areaNome: a.areaNome,
+        equipNome: a.equipNome,
+        sistemaEmpresaNome: a.sistemaEmpresaNome,
+        qtdMaterial: a.qtdMaterial,
+        executores: a.executores,
+        realizada: a.realizada,
+      },
+    );
+
+    // add.save((err, dep) => {
+    //   if (err) {
+    //     // res.status(500).send(err);
+    //     console.log(err);
+    //   } else {
+    //     // res.status(200).send(dep);
+    //     // console.log('Gravando status 4');
+    //   }
+    // });
+  });
+});
