@@ -5,6 +5,7 @@ const Status1 = require('./Schemas/Status1');
 const Status2 = require('./Schemas/Status2');
 const Status3 = require('./Schemas/Status3');
 const Status4 = require('./Schemas/Status4');
+require('./Logica');
 
 const app = express();
 
@@ -20,13 +21,14 @@ function factoryContrato(siteNome, quant) {
 }
 // const apiLogica = require('./apiLogica');
 
-// mongoose.connect('mongodb+srv://controller:D&s&nv0lvim&nt0@cluster0.glt6q.mongodb.net/PortalIntegracao?retryWrites=true&w=majority');
-mongoose.connect('mongodb://mongodb:27017/Controllerbms_Projetos');
+mongoose.connect('mongodb+srv://controller:D&s&nv0lvim&nt0@cluster0.glt6q.mongodb.net/PortalIntegracao?retryWrites=true&w=majority');
+// mongoose.connect('mongodb://mongodb:27017/Controllerbms_Projetos');
 
 const port = process.env.Port || 3000;
 
 app.get('/', (req, res) => {
   // http://localhost:3000/?di=2021-12-01&df=2021-12-08&s=THERA%20OFFICE
+  // http://localhost:3000/?di=2021-01-01&df=2021-03-30&s=THERA%20OFFICE
   console.log('Acessou a pagina');
   // console.log(req.query);
   const { di } = req.query;
