@@ -57,11 +57,12 @@ delStatus1();
 async function ObterAtividadesMes(year, month, days) {
   const settingsstatus1 = {
     raxConfig: {
-      retry: 5, // number of retry when facing 4xx or 5xx
+      retry: 50, // number of retry when facing 4xx or 5xx
       noResponseRetries: 50, // number of retry when facing connection error
+      retryDelay: 5000,
       onRetryAttempt: (err) => {
         const cfg = rax.getConfig(err);
-        console.log(`Retry attempt #${cfg.currentRetryAttempt}`); // track current trial
+        console.log(`Retry attempt Status 1 #${cfg.currentRetryAttempt}`); // track current trial
       },
     },
 
@@ -183,7 +184,7 @@ async function StartTimer() {
   //
 }
 
-const myVar = setInterval(StartTimer, 1000);
+const myVar = setInterval(StartTimer, 2000);
 // Functions Inciando Logica
 
 function EndTimer() {
