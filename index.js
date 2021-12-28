@@ -24,8 +24,8 @@ function factoryContrato(siteNome, quant) {
 }
 // const apiLogica = require('./apiLogica');
 
-mongoose.connect('mongodb+srv://controller:D&s&nv0lvim&nt0@cluster0.glt6q.mongodb.net/PortalIntegracao?retryWrites=true&w=majority');
-// mongoose.connect('mongodb://mongodb:27017/Controllerbms_Projetos');
+// mongoose.connect('mongodb+srv://controller:D&s&nv0lvim&nt0@cluster0.glt6q.mongodb.net/PortalIntegracao?retryWrites=true&w=majority');
+mongoose.connect('mongodb://mongodb:27017/Controllerbms_Projetos');
 
 const port = process.env.Port || 3000;
 
