@@ -5,7 +5,10 @@ const Status1 = require('./Schemas/Status1');
 const Status2 = require('./Schemas/Status2');
 const Status3 = require('./Schemas/Status3');
 const Status4 = require('./Schemas/Status4');
-require('./Logica');
+require('./LogicaSatus/LogicaStatus1');
+require('./LogicaSatus/LogicaStatus2');
+require('./LogicaSatus/LogicaStatus3');
+require('./LogicaSatus/LogicaStatus4');
 
 const app = express();
 

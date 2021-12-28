@@ -4,7 +4,7 @@ const rax = require('retry-axios');
 rax.attach();
 const axios = require('axios');
 // const delay = require('delay');
-const Status2 = require('../Schemas/Status2');
+const Status4 = require('../Schemas/Status4');
 
 function padLeft(text, padChar, size) {
   return (String(padChar).repeat(size) + text).substr(size * -1, size);
@@ -39,9 +39,9 @@ const start = new Date(`${ano}-01-01`);
 const end = new Date();
 let loop = new Date(start);
 
-function delStatus2() {
+function delStatus4() {
   const del = true;
-  Status2.deleteMany({
+  Status4.deleteMany({
     p: del,
   }, (err) => {
     if (err) {
@@ -52,10 +52,10 @@ function delStatus2() {
   });
 }
 
-delStatus2();
+delStatus4();
 
 async function ObterAtividadesMes(year, month, days) {
-  const settingsstatus2 = {
+  const settingsstatus4 = {
     raxConfig: {
       retry: 5, // number of retry when facing 4xx or 5xx
       noResponseRetries: 50, // number of retry when facing connection error
@@ -65,7 +65,7 @@ async function ObterAtividadesMes(year, month, days) {
       },
     },
 
-    url: `https://lighthousev2.lkp.app.br/v1/atividades?SelectedDate=${year}-${month}-${days}&StatusId=2`,
+    url: `https://lighthousev2.lkp.app.br/v1/atividades?SelectedDate=${year}-${month}-${days}&StatusId=4`,
     method: 'GET',
     headers: {
       EmpresaId: '3554',
@@ -77,16 +77,16 @@ async function ObterAtividadesMes(year, month, days) {
     },
 
   };
-  const requeststatus2 = async () => {
+  const requeststatus4 = async () => {
     try {
       // eslint-disable-next-line no-unused-vars
-      const req = await axios(settingsstatus2)
+      const req = await axios(settingsstatus4)
         .then((response) => {
           const dados = (response.data);
           // eslint-disable-next-line array-callback-return
           dados.map((a) => {
             const dataPrevista = formatdateYear(a.dataPrevista);
-            const add = new Status2(
+            const add = new Status4(
               {
                 tarefa: a.tarefa,
                 numero: a.numero,
@@ -109,23 +109,23 @@ async function ObterAtividadesMes(year, month, days) {
               },
             );
 
-            add.save((err, dep) => {
+            add.save((err) => {
               if (err) {
                 // res.status(500).send(err);
                 console.log(err);
               } else {
-                console.log(dep);
+                // console.log(dep);
                 // res.status(200).send(dep);
                 // console.log('Gravando status 1');
               }
             });
           });
         });
-    } catch (errorstatus2) {
-      console.log(errorstatus2);
+    } catch (errorstatus4) {
+      console.log(errorstatus4);
     }
   };
-  requeststatus2();
+  requeststatus4();
 }
 
 async function MainLogic() {
@@ -136,12 +136,12 @@ async function MainLogic() {
     const year = loop.getFullYear();
     const month = format(loop.getMonth() + 1);
     const day = format(loop.getDate());
-    console.log(`Rondando status2: ${year}-${month}-${day}`);
+    console.log(`Rondando status4: ${year}-${month}-${day}`);
     ObterAtividadesMes(year, month, day);
   } else {
     // eslint-disable-next-line no-use-before-define
     EndTimer();
-    console.log('Finalizando Status2');
+    console.log('Finalizando Status4');
   }
 }
 
