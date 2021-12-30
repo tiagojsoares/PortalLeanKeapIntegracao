@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const Status1 = require('./Schemas/Status1');
 const Status2 = require('./Schemas/Status2');
 const Status3 = require('./Schemas/Status3');
@@ -10,6 +11,10 @@ require('./LogicaSatus/LogicaStatus2');
 require('./LogicaSatus/LogicaStatus3');
 require('./LogicaSatus/LogicaStatus4');
 
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 const app = express();
 
 function factoryContrato(siteNome, quant) {
@@ -29,10 +34,12 @@ mongoose.connect('mongodb://mongodb:27017/Controllerbms_Projetos');
 
 const port = process.env.Port || 3000;
 
-app.get('/', (req, res) => {
+app.get('/', cors(corsOptions), (req, res) => {
   // http://localhost:3000/?di=2021-12-01&df=2021-12-08&s=THERA%20OFFICE
   // http://localhost:3000/?di=2021-01-01&df=2021-03-30&s=THERA%20OFFICE
+  // Prints: hello world, to stdout
   console.log('Acessou a pagina');
+
   // console.log(req.query);
   const { di } = req.query;
   const { df } = req.query;
